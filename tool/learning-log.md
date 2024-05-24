@@ -12,7 +12,8 @@ Project: Creating a side scroll game (Mario or Sonic style). The main character 
 3/18/24:
 * The problem that I had was figuring out how to add Kaboom.js into my IDE. So, I watched a tutorial video on how to create a Project from Scratch using Code,Parcel,and NPM on Youtube from a Coding channel called ourcade.
 
-
+3/28/24:
+* 
 <!--
 * Youtube,links, & tutorials
 * Things you tried, progress you made, etc

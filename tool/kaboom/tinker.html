@@ -1,8 +1,19 @@
-<html>
-<head>
-  <title>My Game</title>
-</head>
-<body>
-    <script src="./main.js"></script>
-  </body>
-</html>
+// Initialize kaboom.js
+kaboom();
+
+// Load the background image
+loadRoot('https://cdn.jsdelivr.net/gh/kaboomjs/examples/');
+loadSprite('bg', 'bg.png');
+
+// Add the background
+add([
+    sprite('bg'),
+    layer('background'), // Ensure the background is behind other elements
+    pos(0, 0), // Position the background at the top-left corner
+]);
+
+// Add other game elements here
+// ...
+
+// Start the game
+start();
