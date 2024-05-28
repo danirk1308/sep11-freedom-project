@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="style.css" rel="stylesheet" type="text/css" />
-        <style>
-            /* CSS */
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+        /* CSS */
 
-        </style>
+    </style>
 
-        <title>Platformer</title>
-    </head>
-    <body>
-        <!-- HTML -->
+    <title>Platformer</title>
+</head>
+<body>
+    <!-- HTML -->
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- <script src="script.js"></script> -->
-        <script src="https://unpkg.com/kaboom@3000.0.1/dist/kaboom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="script.js"></script> -->
+    <script src="https://unpkg.com/kaboom@3000.0.1/dist/kaboom.js"></script>
 
-        <script>
-
-            kaboom({
-             background: [141, 183, 255],
-            })
-
-            // load assets
-            loadSprite("bean", "/sprites/bean.png")
+    <script>
+      kaboom({
+	background: [141, 183, 255],
+})
+// load assets
+loadSprite("bean", "/sprites/bean.png")
             loadSprite("coin", "/sprites/coin.png")
-            loadSprite("door", "/sprites/door.png")
+            loadSprite("portal", "/sprites/portal.png")
             loadSprite("grass", "/sprites/grass.png")
             loadSprite("spike", "/sprites/spike.png")
+            loadSprite("dino", "/sprites/dino.png")
 
             setGravity(3200)
 
@@ -86,7 +85,8 @@ const LEVELS = [
         "=================================================",
     ],
 
-    const levelConf = {
+// define what each symbol means in the level graph
+const levelConf = {
 	tileWidth: 64,
 	tileHeight: 64,
 	tiles: {
@@ -130,7 +130,7 @@ const LEVELS = [
 			scale(.1),
         ],
             "@": () => [
-			sprite("door"),
+			sprite("portal"),
 			area({ scale: 0.5 }),
 			anchor("bot"),
 			pos(0, -12),
@@ -183,7 +183,7 @@ const LEVELS = [
 		// play("hit")
 	})
 
-	player.onCollide("door", () => {
+	player.onCollide("portal", () => {
 		// play("portal")
 		if (levelId + 1 < LEVELS.length) {
 			go("game", {
@@ -293,6 +293,7 @@ scene("win", () => {
 })
 
 go("game")
+
 
         </script>
     </body>
