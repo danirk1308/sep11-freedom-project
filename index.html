@@ -209,32 +209,30 @@
           }
         });
 
-        let coinPitch = 0;
+        let coinPitch = 0
 
-        onUpdate(() => {
-          if (coinPitch > 0) {
-            coinPitch = Math.max(0, coinPitch - dt() * 100);
-          }
-        });
+	onUpdate(() => {
+		if (coinPitch > 0) {
+			coinPitch = Math.max(0, coinPitch - dt() * 100)
+		}
+	})
 
-        player.onCollide("coins", (c) => {
-          destroy(c);
-          play("coin", {
-            detune: coinPitch,
-          });
-          coinsPitch += 100;
-          coins += 1;
-          coinsLabel.text = coins;
-          if (coins === 100) {
-            go("win");
-          }
-        });
+	player.onCollide("coin", (c) => {
+		destroy(c)
+		play("coin", {
+			detune: coinPitch,
+		})
+		coinPitch += 100
+		coins += 1
+		coinsLabel.text = coins
+	})
 
-        const coinsLabel = add([
-          text(coins),
-          pos(24, 24),
-          fixed(),
-        ]);
+	const coinsLabel = add([
+		text(coins),
+		pos(24, 24),
+		fixed(),
+	])
+
 
         function jump() {
           // these 2 functions are provided by body() component
@@ -244,50 +242,51 @@
         }
 
         // jump with space
-        onKeyPress("space", jump);
+	onKeyPress("space", jump)
 
-        onKeyDown("left", () => {
-          player.move(MOVE_SPEED, 0);
-        });
+	onKeyDown("left", () => {
+		player.move(-MOVE_SPEED, 0)
+	})
 
-        onKeyDown("right", () => {
-          player.move(-MOVE_SPEED, 0);
-        });
+	onKeyDown("right", () => {
+		player.move(MOVE_SPEED, 0)
+	})
 
-        onKeyPress("down", () => {
-          player.weight = 3;
-        });
+	onKeyPress("down", () => {
+		player.weight = 3
+	})
 
-        onKeyRelease("down", () => {
-          player.weight = 1;
-        });
+	onKeyRelease("down", () => {
+		player.weight = 1
+	})
 
-        onGamepadButtonPress("south", jump);
+	onGamepadButtonPress("south", jump)
 
-        onGamepadStick("left", (v) => {
-          player.move(v.x * MOVE_SPEED, 0);
-        });
+	onGamepadStick("left", (v) => {
+		player.move(v.x * MOVE_SPEED, 0)
+	})
 
-        onKeyPress("f", () => {
-          setFullscreen(!isFullscreen());
-        });
-      });
+	onKeyPress("f", () => {
+		setFullscreen(!isFullscreen())
+	})
 
-      scene("lose", () => {
-        add([
-          text("You Lose"),
-        ]);
-        onKeyPress(() => go("game"));
-      });
+})
 
-      scene("win", () => {
-        add([
-          text("You Win"),
-        ]);
-        onKeyPress(() => go("game"));
-      });
+scene("lose", () => {
+	add([
+		text("You Lose"),
+	])
+	onKeyPress(() => go("game"))
+})
 
-      go("game");
+scene("win", () => {
+	add([
+		text("You Win"),
+	])
+	onKeyPress(() => go("game"))
+})
+
+go("game")
     </script>
 </body>
 </html>
