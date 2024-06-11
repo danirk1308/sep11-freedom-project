@@ -23,7 +23,7 @@
     <script>
       kaboom({
         background: [141, 183, 255],
-      });
+      })
 
       // load assets
       loadSprite("bean", "/sprites/bean.png")
@@ -32,6 +32,7 @@
       loadSprite("grass", "/sprites/grass.png")
       loadSprite("spike", "/sprites/spike.png")
       loadSprite("dino", "/sprites/dino.png")
+      loadSound("coin", "/examples/sounds/score.mp3")
 
       setGravity(3200)
 
@@ -83,21 +84,20 @@
               "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
               "=================================================",
           ]
-      ];
+      ]
 
       // define what each symbol means in the level graph
       const levelConf = {
         tileWidth: 64,
         tileHeight: 64,
         tiles: {
-          "=": () => [
+            "=": () => [
             sprite("grass"),
             area(),
             body({ isStatic: true }),
             anchor("bot"),
             offscreen({ hide: true }),
             "platform",
-            scale(1),
           ],
           "$": () => [
             sprite("coin"),
@@ -105,7 +105,6 @@
             pos(0, -9),
             anchor("bot"),
             offscreen({ hide: true }),
-            scale(1),
             "coin",
           ],
 
@@ -116,7 +115,6 @@
             anchor("bot"),
             offscreen({ hide: true }),
             "danger",
-            scale(1),
           ],
 
           ">": () => [
@@ -127,7 +125,6 @@
             patrol(),
             offscreen({ hide: true }),
             "enemy",
-            scale(1),
           ],
 
           "@": () => [
@@ -137,10 +134,9 @@
             pos(0, -12),
             offscreen({ hide: true }),
             "portal",
-            scale(3),
           ],
         }
-      };
+      }
 
       scene("game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
         // add level to scene
@@ -155,59 +151,59 @@
           // makes it fall to gravity and jumpable
           body({ jumpForce: JUMP_FORCE}),
           anchor("bot"),
-        ]);
+        ])
 
         // action() runs every frame
         player.onUpdate(() => {
           // center camera to player
-          camPos(player.pos);
+          camPos(player.pos)
           // check fall death
           if (player.pos.y >= FALL_DEATH) {
-            go("lose");
+            go("lose")
           }
-        });
+        })
 
         player.onBeforePhysicsResolve((collision) => {
           if (collision.target.is(["platform", "soft"]) && player.isJumping()) {
-            collision.preventResolution();
+            collision.preventResolution()
           }
-        });
+        })
 
         player.onPhysicsResolve(() => {
           // Set the viewport center to player.pos
-          camPos(player.pos);
-        });
+          camPos(player.pos)
+        })
 
         // if player onCollide with any obj with "danger" tag, lose
         player.onCollide("danger", () => {
-          go("lose");
-        });
+          go("lose")
+        })
 
         player.onCollide("portal", () => {
           if (levelId + 1 < LEVELS.length) {
             go("game", {
               levelId: levelId + 1,
               coins: coins,
-            });
+            })
           } else {
-            go("win");
+            go("win")
           }
-        });
+        })
 
         player.onGround((l) => {
           if (l.is("enemy")) {
             player.jump(JUMP_FORCE * 1.5);
             destroy(l);
-            addKaboom(player.pos);
+            addKaboom(player.pos)
           }
-        });
+        })
 
         player.onCollide("enemy", (e, col) => {
           // if it's not from the top, die
           if (!col.isBottom()) {
-            go("lose");
+            go("lose")
           }
-        });
+        })
 
         let coinPitch = 0
 
@@ -225,6 +221,9 @@
 		coinPitch += 100
 		coins += 1
 		coinsLabel.text = coins
+    if(coins=="100"){
+      go("win")
+    }
 	})
 
 	const coinsLabel = add([
@@ -287,6 +286,7 @@ scene("win", () => {
 })
 
 go("game")
+
     </script>
 </body>
 </html>
